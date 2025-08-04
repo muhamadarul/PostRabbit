@@ -57,14 +57,6 @@ docker-compose up --build
 
 ---
 
-## 🧪 Contoh Request
-
-```bash
-curl -X POST http://localhost:8001/posts      -H "Content-Type: application/json"      -d '{"title": "Hello", "content": "World"}'
-```
-
----
-
 ## ✅ Fitur
 
 - 📨 Kirim notifikasi email tanpa blocking proses utama
