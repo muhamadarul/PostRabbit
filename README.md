@@ -1,6 +1,6 @@
 # 🐇 PostRabbit
 
-**PostRabbit** adalah mini-project berbasis microservice dengan Laravel, Lumen, Docker, RabbitMQ, dan Laravel Queue. Proyek ini mensimulasikan proses _publish post_ yang akan memicu pengiriman notifikasi email secara asynchronous.
+**PostRabbit** adalah mini-project berbasis microservice dengan Laravel, Docker, dan RabbitMQ. Proyek ini mensimulasikan proses _publish post_ yang akan memicu pengiriman notifikasi email secara asynchronous.
 
 ---
 

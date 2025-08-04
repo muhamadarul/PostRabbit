@@ -52,59 +52,32 @@ services:
   post-service:
     build:
       context: ./post-service
+      dockerfile: Dockerfile
     container_name: post-service
+    volumes:
+      - ./post-service:/var/www
     ports:
-      - "8001:8000"
+      - "9001:9000"
+    networks:
+      - app-network
     depends_on:
-      - mysql
       - rabbitmq
-    environment:
-      DB_HOST: mysql
-      DB_DATABASE: postrabbit
-      DB_USERNAME: user
-      DB_PASSWORD: secret
-      QUEUE_CONNECTION: rabbitmq
-      RABBITMQ_HOST: rabbitmq
 
-  # NotifService (Laravel API opsional)
   notif-service:
     build:
       context: ./notif-service
+      dockerfile: Dockerfile
     container_name: notif-service
+    volumes:
+      - ./notif-service:/var/www
     ports:
-      - "8002:8000"
-    depends_on:
-      - mysql
-      - rabbitmq
-      - redis
-    environment:
-      DB_HOST: mysql
-      DB_DATABASE: postrabbit
-      DB_USERNAME: user
-      DB_PASSWORD: secret
-      QUEUE_CONNECTION: rabbitmq
-      RABBITMQ_HOST: rabbitmq
-      REDIS_HOST: redis
-
-  # NotifWorker (Laravel worker, tanpa port)
-  notif-worker:
-    build:
-      context: ./notif-worker
-    container_name: notif-worker
+      - "9002:9000"
+    networks:
+      - app-network
     depends_on:
       - rabbitmq
-      - mysql
-      - redis
-    environment:
-      DB_HOST: mysql
-      DB_DATABASE: postrabbit
-      DB_USERNAME: user
-      DB_PASSWORD: secret
-      QUEUE_CONNECTION: rabbitmq
-      RABBITMQ_HOST: rabbitmq
-      REDIS_HOST: redis
     command: php artisan queue:work --tries=3 --sleep=2
-
+    
 volumes:
   mysql_data:
   redis_data:
