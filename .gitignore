@@ -1,0 +1,30 @@
+# Global ignore
+.env
+.DS_Store
+Thumbs.db
+*.log
+*.sqlite
+*.sqlite3
+*.bak
+*.tmp
+
+# Laravel & Lumen
+/vendor/
+/node_modules/
+/bootstrap/cache/
+/storage/*.key
+/storage/*.log
+/storage/debugbar/
+/storage/framework/cache/data/*
+/storage/framework/sessions/*
+/storage/framework/views/*
+/storage/logs/*.log
+
+# Docker & Build artifacts
+*.pid
+*.tar
+docker-compose.override.yml
+
+# Ignore .env in each service folder
+post-service/.env
+notif-service/.env

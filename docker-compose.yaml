@@ -1,0 +1,110 @@
+version: '3.8'
+
+services:
+  # RabbitMQ dengan dashboard
+  rabbitmq:
+    image: rabbitmq:3-management
+    container_name: rabbitmq
+    ports:
+      - "5672:5672"      # AMQP port
+      - "15672:15672"    # Web UI
+    environment:
+      RABBITMQ_DEFAULT_USER: guest
+      RABBITMQ_DEFAULT_PASS: guest
+
+  # MySQL
+  mysql:
+    image: mysql:8.0
+    container_name: mysql
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: postrabbit
+      MYSQL_USER: user
+      MYSQL_PASSWORD: secret
+    volumes:
+      - mysql_data:/var/lib/mysql
+
+  # Redis
+  redis:
+    image: redis:alpine
+    container_name: redis
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+
+  # phpMyAdmin untuk cek database
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    container_name: phpmyadmin
+    depends_on:
+      - mysql
+    ports:
+      - "8080:80"
+    environment:
+      PMA_HOST: mysql
+      PMA_USER: root
+      PMA_PASSWORD: root
+
+  # PostService (Lumen API)
+  post-service:
+    build:
+      context: ./post-service
+    container_name: post-service
+    ports:
+      - "8001:8000"
+    depends_on:
+      - mysql
+      - rabbitmq
+    environment:
+      DB_HOST: mysql
+      DB_DATABASE: postrabbit
+      DB_USERNAME: user
+      DB_PASSWORD: secret
+      QUEUE_CONNECTION: rabbitmq
+      RABBITMQ_HOST: rabbitmq
+
+  # NotifService (Laravel API opsional)
+  notif-service:
+    build:
+      context: ./notif-service
+    container_name: notif-service
+    ports:
+      - "8002:8000"
+    depends_on:
+      - mysql
+      - rabbitmq
+      - redis
+    environment:
+      DB_HOST: mysql
+      DB_DATABASE: postrabbit
+      DB_USERNAME: user
+      DB_PASSWORD: secret
+      QUEUE_CONNECTION: rabbitmq
+      RABBITMQ_HOST: rabbitmq
+      REDIS_HOST: redis
+
+  # NotifWorker (Laravel worker, tanpa port)
+  notif-worker:
+    build:
+      context: ./notif-worker
+    container_name: notif-worker
+    depends_on:
+      - rabbitmq
+      - mysql
+      - redis
+    environment:
+      DB_HOST: mysql
+      DB_DATABASE: postrabbit
+      DB_USERNAME: user
+      DB_PASSWORD: secret
+      QUEUE_CONNECTION: rabbitmq
+      RABBITMQ_HOST: rabbitmq
+      REDIS_HOST: redis
+    command: php artisan queue:work --tries=3 --sleep=2
+
+volumes:
+  mysql_data:
+  redis_data:

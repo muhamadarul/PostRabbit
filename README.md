@@ -1,0 +1,96 @@
+# 🐇 PostRabbit
+
+**PostRabbit** adalah mini-project berbasis microservice dengan Laravel, Lumen, Docker, RabbitMQ, dan Laravel Queue. Proyek ini mensimulasikan proses _publish post_ yang akan memicu pengiriman notifikasi email secara asynchronous.
+
+---
+
+## 🧩 Struktur Monorepo
+
+```
+post-rabbit/
+├── post-service/       # Lumen service - API untuk membuat post
+├── notif-service/      # Laravel service - Worker untuk kirim email notifikasi
+├── docker-compose.yml  # Orkestrasi service dengan RabbitMQ
+└── README.md
+```
+
+---
+
+## 🚀 Cara Menjalankan
+
+### 1. Clone Repository
+```bash
+git clone https://github.com/username/postrabbit.git
+cd postrabbit
+```
+
+### 2. Jalankan Semua Service dengan Docker
+```bash
+docker-compose up --build
+```
+
+### 3. Akses
+
+| Service         | URL / Port             |
+|-----------------|------------------------|
+| Post Service    | http://localhost:8001  |
+| Notif Service   | http://localhost:8002  |
+| RabbitMQ Admin  | http://localhost:15672 (guest / guest) |
+
+---
+
+## 📬 Alur Kerja
+
+1. `PostService` menerima permintaan POST `/posts`
+2. Data post dikirim ke RabbitMQ queue bernama `post_queue`
+3. `NotifService` mendengarkan queue dan mengirim email notifikasi menggunakan Laravel Queue Worker
+
+---
+
+## 📦 Teknologi
+
+- **Lumen** – microservice untuk menerima post
+- **Laravel** – service untuk mengirim email notifikasi
+- **RabbitMQ** – message broker
+- **Laravel Queue (via Redis/RabbitMQ)** – asynchronous job handling
+- **Docker + Docker Compose** – containerisasi service
+
+---
+
+## 🧪 Contoh Request
+
+```bash
+curl -X POST http://localhost:8001/posts      -H "Content-Type: application/json"      -d '{"title": "Hello", "content": "World"}'
+```
+
+---
+
+## ✅ Fitur
+
+- 📨 Kirim notifikasi email tanpa blocking proses utama
+- ⚙️ Arsitektur Microservice (decoupled logic)
+- 🐳 Docker support untuk semua service
+- 🔁 Laravel Queue Worker untuk proses background job
+- 📦 RabbitMQ untuk komunikasi antar layanan
+
+---
+
+## 🧂 Konfigurasi Tambahan
+
+Jika kamu butuh konfigurasi email seperti SMTP, atur `.env` di `notif-service`:
+```env
+MAIL_MAILER=smtp
+MAIL_HOST=mailhog
+MAIL_PORT=1025
+MAIL_USERNAME=null
+MAIL_PASSWORD=null
+MAIL_ENCRYPTION=null
+MAIL_FROM_ADDRESS=no-reply@example.com
+MAIL_FROM_NAME="PostRabbit"
+```
+
+---
+
+## 🧠 Lisensi
+
+MIT © 2025 PostRabbit Team
