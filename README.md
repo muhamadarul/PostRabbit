@@ -20,8 +20,8 @@ post-rabbit/
 
 ### 1. Clone Repository
 ```bash
-git clone https://github.com/username/postrabbit.git
-cd postrabbit
+git clone https://github.com/muhamadarul/PostRabbit.git
+cd PostRabbit
 ```
 
 ### 2. Jalankan Semua Service dengan Docker
@@ -33,9 +33,9 @@ docker-compose up --build
 
 | Service         | URL / Port             |
 |-----------------|------------------------|
-| Post Service    | http://localhost:8001  |
-| Notif Service   | http://localhost:8002  |
-| RabbitMQ Admin  | http://localhost:15672 (guest / guest) |
+| Post Service    | #  |
+| Notif Service   | #  |
+| RabbitMQ Admin  | #  |
 
 ---
 
