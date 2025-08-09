@@ -24,7 +24,12 @@ git clone https://github.com/muhamadarul/PostRabbit.git
 cd PostRabbit
 ```
 
-### 2. Setting .env.docker 
+### 2. Setting .env
+
+1. Konfigurasi .env.docker buat jika belum ada ambil dari .env.docker.example 
+2. Konfigurasi .env di post-service database, redis, dan rabbitmq
+2. Konfigurasi .env di notif-service redis, dan rabbitmq
+
 
 ### 3. Jalankan Semua Service dengan Docker
 ```bash
