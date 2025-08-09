@@ -1,27 +1,31 @@
 FROM php:8.2-fpm
 
-# Install dependencies
+# Install dependencies (opsional, kalau belum)
 RUN apt-get update && apt-get install -y \
-    zip unzip git curl libzip-dev \
-    libpng-dev libonig-dev libxml2-dev \
-    libpq-dev libcurl4-openssl-dev \
-    && docker-php-ext-install pdo pdo_mysql sockets
+    unzip \
+    git \
+    curl \
+    libzip-dev \
+    zip \
+    && docker-php-ext-install pdo pdo_mysql sockets 
 
-# Install Composer
-COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
+# Install Composer (jika belum pakai multi-stage)
+RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
 # Set working directory
 WORKDIR /var/www
 
-# Copy source
+# Copy source code
 COPY . .
 
-# Install Laravel dependencies
-RUN composer install
-
-# Set permission
+# Set file permissions (boleh tetap di sini)
 RUN chown -R www-data:www-data /var/www && chmod -R 755 /var/www
+
+# Copy entrypoint script
+COPY docker-entrypoint.sh /usr/local/bin/docker-entrypoint.sh
+RUN chmod +x /usr/local/bin/docker-entrypoint.sh
 
 EXPOSE 9000
 
+ENTRYPOINT ["docker-entrypoint.sh"]
 CMD ["php-fpm"]

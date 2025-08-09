@@ -24,18 +24,21 @@ git clone https://github.com/muhamadarul/PostRabbit.git
 cd PostRabbit
 ```
 
-### 2. Jalankan Semua Service dengan Docker
+### 2. Setting .env.docker 
+
+### 3. Jalankan Semua Service dengan Docker
 ```bash
-docker-compose up --build
+docker compose build
+docker compose --env-file .env.docker up -d
 ```
 
-### 3. Akses
+### 4. Akses
 
 | Service         | URL / Port             |
 |-----------------|------------------------|
-| Post Service    | #  |
-| Notif Service   | #  |
-| RabbitMQ Admin  | #  |
+| Post Service    | 9000  |
+| Notif Service   | 9002  |
+| RabbitMQ Admin  | 15672 |
 
 ---
 
@@ -49,7 +52,7 @@ docker-compose up --build
 
 ## 📦 Teknologi
 
-- **Lumen** – microservice untuk menerima post
+- **Laravel** – microservice untuk menerima post
 - **Laravel** – service untuk mengirim email notifikasi
 - **RabbitMQ** – message broker
 - **Laravel Queue (via Redis/RabbitMQ)** – asynchronous job handling
@@ -85,4 +88,4 @@ MAIL_FROM_NAME="PostRabbit"
 
 ## 🧠 Lisensi
 
-MIT © 2025 PostRabbit Team
+MIT © 2025 Muhamad Arul

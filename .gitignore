@@ -28,3 +28,4 @@ docker-compose.override.yml
 # Ignore .env in each service folder
 post-service/.env
 notif-service/.env
+env.docker
