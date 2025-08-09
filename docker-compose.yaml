@@ -10,6 +10,8 @@ services:
       RABBITMQ_DEFAULT_PASS: ${RABBITMQ_DEFAULT_PASS}
     networks:
       - app-network
+    volumes:
+      - rabbitmq_data:/var/lib/rabbitmq
 
   mysql:
     image: mysql:8.0
@@ -78,12 +80,14 @@ services:
     environment:
       RUN_MIGRATION: "true"
     entrypoint: /var/www/docker-entrypoint.sh
-    command: php artisan queue:work --tries=3 --sleep=2
-    
+    # command: php artisan queue:work rabbitmq --tries=3 --sleep=3
+    command: php -S 0.0.0.0:9000 -t public
+
 
 volumes:
   mysql_data:
   redis_data:
+  rabbitmq_data:
 
 networks:
   app-network:

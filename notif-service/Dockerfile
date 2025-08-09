@@ -7,6 +7,7 @@ RUN apt-get update && apt-get install -y \
     curl \
     libzip-dev \
     zip \
+    supervisor \
     && docker-php-ext-install pdo pdo_mysql sockets
 
 # Install Composer (jika belum pakai multi-stage)
@@ -25,7 +26,10 @@ RUN chown -R www-data:www-data /var/www && chmod -R 755 /var/www
 COPY docker-entrypoint.sh /usr/local/bin/docker-entrypoint.sh
 RUN chmod +x /usr/local/bin/docker-entrypoint.sh
 
+COPY supervisord.conf /etc/supervisor/supervisord.conf
+
 EXPOSE 9000
 
 ENTRYPOINT ["docker-entrypoint.sh"]
-CMD ["php-fpm"]
+CMD ["supervisord", "-c", "/etc/supervisor/supervisord.conf"]
+

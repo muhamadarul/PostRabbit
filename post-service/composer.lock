@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "37ffa740762b5caeefd1f4189796345c",
+    "content-hash": "65e0671164cd92196c6e8f1c8b31ccfb",
     "packages": [
         {
             "name": "brick/math",
@@ -2509,16 +2509,16 @@
         },
         {
             "name": "php-amqplib/php-amqplib",
-            "version": "v3.6.0",
+            "version": "v3.7.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/php-amqplib/php-amqplib.git",
-                "reference": "fb84e99589de0904a25861451b0552f806284ee5"
+                "reference": "9f50fe69a9f1a19e2cb25596a354d705de36fe59"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/php-amqplib/php-amqplib/zipball/fb84e99589de0904a25861451b0552f806284ee5",
-                "reference": "fb84e99589de0904a25861451b0552f806284ee5",
+                "url": "https://api.github.com/repos/php-amqplib/php-amqplib/zipball/9f50fe69a9f1a19e2cb25596a354d705de36fe59",
+                "reference": "9f50fe69a9f1a19e2cb25596a354d705de36fe59",
                 "shasum": ""
             },
             "require": {
@@ -2584,9 +2584,9 @@
             ],
             "support": {
                 "issues": "https://github.com/php-amqplib/php-amqplib/issues",
-                "source": "https://github.com/php-amqplib/php-amqplib/tree/v3.6.0"
+                "source": "https://github.com/php-amqplib/php-amqplib/tree/v3.7.3"
             },
-            "time": "2023-10-22T15:02:02+00:00"
+            "time": "2025-02-18T20:11:13+00:00"
         },
         {
             "name": "phpoption/phpoption",
@@ -5737,30 +5737,30 @@
         },
         {
             "name": "vladimir-yuldashev/laravel-queue-rabbitmq",
-            "version": "v14.0.0",
+            "version": "v14.2.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/vyuldashev/laravel-queue-rabbitmq.git",
-                "reference": "30cc317d4bcd3ee8314e717fc3cef09cffae8e73"
+                "reference": "ca6cd22777b63e1be5b5f7d22f3e3abc50249df8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/vyuldashev/laravel-queue-rabbitmq/zipball/30cc317d4bcd3ee8314e717fc3cef09cffae8e73",
-                "reference": "30cc317d4bcd3ee8314e717fc3cef09cffae8e73",
+                "url": "https://api.github.com/repos/vyuldashev/laravel-queue-rabbitmq/zipball/ca6cd22777b63e1be5b5f7d22f3e3abc50249df8",
+                "reference": "ca6cd22777b63e1be5b5f7d22f3e3abc50249df8",
                 "shasum": ""
             },
             "require": {
                 "ext-json": "*",
-                "illuminate/queue": "^10.0|^11.0",
+                "illuminate/queue": "^10.0|^11.0|^12.0",
                 "php": "^8.0",
                 "php-amqplib/php-amqplib": "^v3.6"
             },
             "require-dev": {
-                "laravel/framework": "^9.0|^10.0|^11.0",
+                "laravel/framework": "^9.0|^10.0|^11.0|^12.0",
                 "laravel/horizon": "^5.0",
                 "laravel/pint": "^1.2",
                 "mockery/mockery": "^1.0",
-                "orchestra/testbench": "^7.0|^8.0|^9.0",
+                "orchestra/testbench": "^7.0|^8.0|^9.0|^10.0",
                 "phpunit/phpunit": "^10.0|^11.0"
             },
             "suggest": {
@@ -5795,9 +5795,9 @@
             "description": "RabbitMQ driver for Laravel Queue. Supports Laravel Horizon.",
             "support": {
                 "issues": "https://github.com/vyuldashev/laravel-queue-rabbitmq/issues",
-                "source": "https://github.com/vyuldashev/laravel-queue-rabbitmq/tree/v14.0.0"
+                "source": "https://github.com/vyuldashev/laravel-queue-rabbitmq/tree/v14.2.0"
             },
-            "time": "2024-03-14T16:03:47+00:00"
+            "time": "2025-04-24T16:47:00+00:00"
         },
         {
             "name": "vlucas/phpdotenv",
@@ -8543,12 +8543,12 @@
     ],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": [],
+    "stability-flags": {},
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {
         "php": "^8.1"
     },
-    "platform-dev": [],
-    "plugin-api-version": "2.3.0"
+    "platform-dev": {},
+    "plugin-api-version": "2.6.0"
 }

@@ -8,8 +8,8 @@
 
 ```
 post-rabbit/
-├── post-service/       # Lumen service - API untuk membuat post
-├── notif-service/      # Laravel service - Worker untuk kirim email notifikasi
+├── post-service/       # Laravel  service - API untuk membuat post (Producer)
+├── notif-service/      # Laravel service - Worker untuk kirim email notifikasi (Worker & Consumer)
 ├── docker-compose.yml  # Orkestrasi service dengan RabbitMQ
 └── README.md
 ```
@@ -41,7 +41,7 @@ docker compose --env-file .env.docker up -d
 
 | Service         | URL / Port             |
 |-----------------|------------------------|
-| Post Service    | 9000  |
+| Post Service    | 9001  |
 | Notif Service   | 9002  |
 | RabbitMQ Admin  | 15672 |
 
@@ -49,9 +49,12 @@ docker compose --env-file .env.docker up -d
 
 ## 📬 Alur Kerja
 
-1. `PostService` menerima permintaan POST `/posts`
+1. `PostService` menerima permintaan POST `api/posts`
 2. Data post dikirim ke RabbitMQ queue bernama `post_queue`
 3. `NotifService` mendengarkan queue dan mengirim email notifikasi menggunakan Laravel Queue Worker
+
+Producer kirim job ke RabbitMQ queue. Notif service (sebagai consumer + worker) ambil job dari RabbitMQ dan langsung mengeksekusi pengiriman email di method handle() jobnya.
+
 
 ---
 
